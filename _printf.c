@@ -1,46 +1,55 @@
 #include <stdarg.h>
 #include <stdio.h>
 /**
-* printf_helper - Entry point
-* @fmt: unlimited args
-* @args: has a va_list type
-* Return: int value
-* Description: Has flag related code & does
-* heavy lifting of the code 
-*/
+ * print_helper - Entry point
+ * @fmt: unlimited args
+ * @args: has a va_list type
+ * Return: int value
+ * Description: Has flag related code & does
+ * heavy lifting of the code
+ */
 int print_helper(const char *fmt, va_list args)
 {
 char *string;
+char ch;
 int state = 0;
 while (*fmt)
 {
 if (state == 0)
+	if (*fmt == '%')
+		state = 1;
+else
+	putchar(*fmt);
+
+else if (state == 1)
 {
-if (*fmt == '%)
+switch (*fmt)
 {
-state = 1;
-} else
-{ putchar(*fmt);
-}} else if (state == 1)
-{
-switch (*fmt);
-{
-case 'c' :
-{
-char ch = va_arg(args, int);
-putchar(ch);
-break;
-} case 's':
-{
-string = va_arg(args, char *);
-while (*string)
-{
-putchar(*string++);
-} break;
-}}
+case 'c':
+	ch = va_arg(args, int);
+
+	putchar(ch);
+	break;
+case 's':
+	string = va_arg(args, char *);
+	while (*string)
+	{
+		putchar(*string++);
+	} break;
+}
 state = 0;
 } fmt++;
-}}
+}
+return (*fmt);
+}
+
+/**
+ * _printf - Entry point
+ * @fmt: unlimited args
+ * Return: int value
+ * Description: Handles the arguments from
+ * the main function
+ */
 int _printf(const char *fmt, ...)
 {
 int result = 0;
