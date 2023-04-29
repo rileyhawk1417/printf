@@ -1,6 +1,6 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 #include <string.h>
 /**
  * TODO: Add more helper functions
@@ -11,69 +11,58 @@
  * Description: Has flag related code & does
  * heavy lifting of the code
  */
-int print_helper(char *fmt, va_list args)
-{
-char ch;
-int state = 0, i = 0, len = 0;
-unsigned int word_count = 0, inc = 0;
-if (fmt == NULL)
-	return (-1);
+int print_helper(char *fmt, va_list args) {
+  char ch;
+  int state = 0, i = 0;
+  unsigned int word_count = 0, inc = 0;
+  if (fmt == NULL)
+    return (-1);
 
- len = (strlen(fmt) + 1); 
-for (inc = 0; fmt[inc] != '\0'; inc++)
-{
-if (state == 0)
-{
-	if (fmt[inc] == '%'){
-		state = 1;
-	}
-	else {
+  for (inc = 0; fmt[inc] != '\0'; inc++) {
+    if (state == 0) {
+      if (fmt[inc] == '%') {
+        state = 1;
+      } else {
 
-		_printer(fmt[inc], len);
-		word_count++;
-	}
-}
+        _printer(fmt[inc]);
+        word_count++;
+      }
+    }
 
-else if (state == 1)
-{
-switch (fmt[inc])
-{
-case 'c':
-{
-ch = va_arg(args, int);
-_printer(ch, 1);
-break;
-}
+    else if (state == 1) {
+      switch (fmt[inc]) {
+      case 'c': {
+        ch = va_arg(args, int);
+        _printer(ch);
+        break;
+      }
 
-case 's':
-{
-int width = length_calc(fmt, &i, args);
-int precision = precise_calc(fmt, &i, args);
-int words = print_string(args, width, precision);
-i++;
-word_count += (words - 1);
-}
-case '%':{
-	 
+      case 's': {
+        int width = length_calc(fmt, &i, args);
+        int precision = precise_calc(fmt, &i, args);
+        int words = print_string(args, width, precision);
+        i++;
+        word_count += (words - 1);
+        break;
+      }
+      case '%': {
 
-	char sign = '%';
+        char sign = '%';
 
-	_printer(sign, 1);
-	 }
-}
-state = 0;
-word_count += 1;
-}
-}
-return (word_count);
+        _printer(sign);
+      }
+      }
+      state = 0;
+      word_count += 1;
+    }
+  }
+  return (word_count);
 }
 
 /**
  * _print - Entry point
  * @msg: unlimited args
  * Return: int value
- * Description: Simply prints to the screen 
+ * Description: Simply prints to the screen
  */
-int _printer(char msg, int length){
-return (write(1, &msg, 1));
-}
+int _printer(char msg) { return (write(1, &msg, 1)); }
