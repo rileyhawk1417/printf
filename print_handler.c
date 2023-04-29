@@ -22,8 +22,12 @@ int print_helper(char *fmt, va_list args) {
     if (state == 0) {
       if (fmt[inc] == '%') {
         state = 1;
-      } else {
 
+        if (fmt[inc] == '%' && fmt[inc + 1] == '\0') {
+          write(1, "%%", 1);
+          write(1, "\n", 1);
+        }
+      } else {
         _printer(fmt[inc]);
         word_count++;
       }
@@ -40,16 +44,21 @@ int print_helper(char *fmt, va_list args) {
       case 's': {
         int width = length_calc(fmt, &i, args);
         int precision = precise_calc(fmt, &i, args);
-        int words = print_string(args, width, precision);
+        int flags = flag_finder(fmt, &i);
+        /* TODO: Intergrate Print Handler for ambigious chars */
+        int words = print_string(args, flags, width, precision);
         i++;
         word_count += (words - 1);
         break;
       }
       case '%': {
-
-        char sign = '%';
-
-        _printer(sign);
+        write(1, "%%", 1);
+        break;
+      }
+      default: {
+        _printer('%');
+        _printer(fmt[inc]);
+        break;
       }
       }
       state = 0;

@@ -1,12 +1,12 @@
 #include "main.h"
 
-int print_handler(const char *fmt, int *index, va_list list, int length,
-                  int precise) {
+int print_handler(const char *fmt, int *index, va_list list, int flag,
+                  int length, int precise) {
   int i, unkown_length = 0, std_out_count = -1;
   fmts fmt_info[] = {{'s', print_string}};
   for (i = 0; fmt_info[i].fmt != '\0'; i++) {
     if (fmt[*index] == fmt_info[i].fmt) {
-      return (fmt_info[i].fn(list, length, precise));
+      return (fmt_info[i].fn(list, flag, length, precise));
     }
   }
 
