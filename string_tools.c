@@ -3,47 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/**
- * TODO: Add more helper functions
- * _string_parser - Entry point
- * @string: unlimited args
- * Return: int value (printed message)
- * Description: Prints the string & counts the string
- */
-int _string_parser(char *string) {
-  int count = 0, result = 0;
-  char *failMsg = "(null)";
-  int word_length;
-  if (string == NULL) {
-    string = failMsg;
-  }
-  word_length = (strlen(string) + 1);
-  while (string[count] != '\0') {
-    result += 1;
-    count++;
-  }
-  /* NOTE: Does work the same as the other*/
-  write(1, string, word_length);
-
-  return (result);
-}
-
-/**
- * TODO: Add more helper functions
- * _string_count - Entry point
- * @arg: value to be counted
- * Return: int value (printed message)
- * Description: Simply prints the value given
- */
-int _string_count(char arg) {
-  int i = 0;
-  while (arg != '\0') {
-    arg++;
-    i++;
-  }
-  return (i);
-}
-
 /************************* PRINT A STRING *************************/
 /**
  * print_string - Prints a string
@@ -55,7 +14,7 @@ int _string_count(char arg) {
  * @size: Size specifier
  * Return: Number of chars printed
  */
-int print_string(va_list types, int len, int precise) {
+int print_string(va_list types, int flag, int len, int precise) {
   int length = 0, i;
   char *str = va_arg(types, char *);
 
@@ -73,7 +32,7 @@ int print_string(va_list types, int len, int precise) {
 
   if (len > length) {
     /* TODO: Put back flag after */
-    if (1) {
+    if (flag & F_MINUS) {
       write(1, &str[0], length);
       for (i = len - length; i > 0; i--)
         write(1, " ", 1);
