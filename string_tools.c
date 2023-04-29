@@ -11,7 +11,7 @@
  * Description: Prints the string & counts the string
  */
 int _string_parser(char *string) {
-  int count = 0, result = 0, i = 0;
+  int count = 0, result = 0;
   char *failMsg = "(null)";
   int word_length;
   if (string == NULL) {
@@ -19,13 +19,11 @@ int _string_parser(char *string) {
   }
   word_length = (strlen(string) + 1);
   while (string[count] != '\0') {
-    //_printer(string[count], word_length);
     result += 1;
     count++;
   }
-
-  write(1, string, word_length); // NOTE: Does work the same as the other
-  //  one
+  /* NOTE: Does work the same as the other*/
+  write(1, string, word_length);
 
   return (result);
 }
@@ -74,7 +72,7 @@ int print_string(va_list types, int len, int precise) {
     length = precise;
 
   if (len > length) {
-    // TODO: Put back flag after
+    /* TODO: Put back flag after */
     if (1) {
       write(1, &str[0], length);
       for (i = len - length; i > 0; i--)

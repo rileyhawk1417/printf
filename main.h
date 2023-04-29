@@ -6,7 +6,7 @@
 
 /*NOTE: Printing Tools */
 int _printf(char *fmt, ...);
-int _printer(char msg, int length);
+int _printer(char msg);
 int print_handler(const char *fmt, int *index,
 		va_list list, int length, int precise);
 int print_helper(char *fmt, va_list args);
