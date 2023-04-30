@@ -37,10 +37,10 @@ else if (state == 1)
 switch (fmt[inc])
 {
 case 'c':
-	ch = va_arg(args, int), _printer(ch);
+	ch = va_arg(args, int), _printer(ch), word_count += 1;
 	break;
 case 's':
-	words = _parse_string(args, fmt, i), i++, word_count += (words - 1);
+	words = _parse_string(args, fmt, &i), i++, word_count += (words - 1);
 	break;
 case '%':
 	write(1, "%%", 1);
@@ -69,12 +69,12 @@ int _printer(char msg) { return (write(1, &msg, 1)); }
  * Return: int value
  * Description: prints to the screen
  */
-int _parse_string(va_list list, const char *fmt, int index)
+int _parse_string(va_list list, const char *fmt, int *index)
 {
 int width = 0, precision = 0, flags = 0, words = 0;
-width = length_calc(fmt, &index, list);
-precision = precise_calc(fmt, &index, list);
-flags = flag_finder(fmt, &index);
+width = length_calc(fmt, index, list);
+precision = precise_calc(fmt, index, list);
+flags = flag_finder(fmt, index);
 words = print_string(list, flags, width, precision);
 /* TODO: Intergrate Print Handler for ambigious chars */
 return (words);

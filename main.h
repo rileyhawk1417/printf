@@ -22,7 +22,7 @@ int print_helper(char *fmt, va_list args);
 /* NOTE: String tools */
 int print_string(va_list types, int flag, int len, int precise);
 int flag_finder(const char *format, int *index);
-int _parse_string(va_list list, const char *fmt, int index);
+int _parse_string(va_list list, const char *fmt, int *index);
 /* NOTE: Format list struct */
 
 /**
@@ -38,6 +38,6 @@ int (*fn)(va_list, int, int, int);
 } fmts;
 
 /* NOTE: MISC Tools */
-int length_calc(const char *fmt, int *i, va_list list);
-int precise_calc(const char *fmt, int *i, va_list list);
+int length_calc(const char *fmt, int *index, va_list list);
+int precise_calc(const char *fmt, int *index, va_list list);
 #endif /* MAIN_H */
