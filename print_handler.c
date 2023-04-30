@@ -28,7 +28,7 @@ if (fmt[inc] == '%' && fmt[inc + 1] == '\0')
 }
 else
 {
-_printer(fmt[inc]), word_count++;
+_printer(fmt[inc]), word_count += 1;
 }
 }
 
@@ -40,13 +40,13 @@ case 'c':
 	ch = va_arg(args, int), _printer(ch), word_count += 1;
 	break;
 case 's':
-	words = _parse_string(args, fmt, &i), i++, word_count += (words - 1);
+	words = _parse_string(args, fmt, &i), i++, word_count += words;
 	break;
 case '%':
 	write(1, "%%", 1);
 	break;
 default:
-	_printer('%'), _printer(fmt[inc]), word_count += 1;
+	_printer('%'), _printer(fmt[inc]), word_count += 1 + 1;
 	break;
 } state = 0;
 }
