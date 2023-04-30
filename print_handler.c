@@ -24,7 +24,7 @@ if (fmt[inc] == '%')
 {
 state = 1;
 if (fmt[inc] == '%' && fmt[inc + 1] == '\0')
-{ return (0); }
+{ return (-1); }
 }
 else
 {
