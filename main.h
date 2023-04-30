@@ -16,13 +16,13 @@
 int _printf(char *fmt, ...);
 int _printer(char msg);
 int print_handler(const char *fmt, int *index, va_list list, int flag,
-                  int length, int precise);
+		int length, int precise);
 int print_helper(char *fmt, va_list args);
 
 /* NOTE: String tools */
 int print_string(va_list types, int flag, int len, int precise);
 int flag_finder(const char *format, int *index);
-
+int _parse_string(va_list list, const char *fmt, int index);
 /* NOTE: Format list struct */
 
 /**
@@ -31,9 +31,10 @@ int flag_finder(const char *format, int *index);
  * @fn: int type function
  * Description: struct that has multiple functions
  */
-typedef struct fmt {
-  char fmt;
-  int (*fn)(va_list, int, int, int);
+typedef struct fmt
+{
+char fmt;
+int (*fn)(va_list, int, int, int);
 } fmts;
 
 /* NOTE: MISC Tools */

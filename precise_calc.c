@@ -2,35 +2,41 @@
 #include <ctype.h>
 
 /**
- * precise_calc - Calculates the precise for printing
+ * precise_calc - Calculates the precise output for printing
  * @fmt: Formatted string in which to print the arguments
- * @i: List of arguments to be printed.
+ * @index: List of arguments to be printed.
  * @list: list of arguments.
  *
  * Return: precise.
  */
-int precise_calc(const char *fmt, int *i, va_list list) {
-  int curr_i = *i + 1;
-  int precise = -1;
+int precise_calc(const char *fmt, int *index, va_list list)
+{
+int current_index = *index + 1;
+int precise = -1;
 
-  if (fmt[curr_i] != '.')
-    return (precise);
+if (fmt[current_index] != '.')
+	return (precise);
 
-  precise = 0;
+precise = 0;
 
-  for (curr_i += 1; fmt[curr_i] != '\0'; curr_i++) {
-    if (isdigit(fmt[curr_i])) {
-      precise *= 10;
-      precise += fmt[curr_i] - '0';
-    } else if (fmt[curr_i] == '*') {
-      curr_i++;
-      precise = va_arg(list, int);
-      break;
-    } else
-      break;
-  }
+for (current_index += 1; fmt[current_index] != '\0'; current_index++)
+{
+if (isdigit(fmt[current_index]))
+{
+precise *= 10;
+precise += fmt[current_index] - '0';
+}
+else if (fmt[current_index] == '*')
+{
+current_index++;
+precise = va_arg(list, int);
+break;
+}
+else
+{ break; }
+}
 
-  *i = curr_i - 1;
+*index = current_index - 1;
 
-  return (precise);
+return (precise);
 }
