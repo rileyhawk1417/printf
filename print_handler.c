@@ -43,7 +43,7 @@ case 's':
 	words = _parse_string(args, fmt, &i), i++, word_count += words;
 	break;
 case '%':
-	write(1, "%%", 1);
+	write(1, "%%", 1), word_count += 1;
 	break;
 default:
 	_printer('%'), _printer(fmt[inc]), word_count += 1 + 1;
